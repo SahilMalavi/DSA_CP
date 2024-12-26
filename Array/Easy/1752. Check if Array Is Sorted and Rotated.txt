@@ -1,0 +1,17 @@
+class Solution {
+    public boolean check(int[] nums) {
+        int count = 0;   //Count of descending pairs
+        int n = nums.length;
+
+        for (int i = 0; i  n; i++) {
+            if (nums[i]>nums[(i + 1) % n]) {   //Compare current element with next (cyclically)
+                count++;
+            }
+            if (count>1) {   //More than one descending pair means it's not sorted and rotated
+                return false;
+            }
+        }
+
+        return true;  // If count = 1, it is sorted and rotated
+    }
+}
