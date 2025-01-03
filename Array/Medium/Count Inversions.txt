@@ -1,0 +1,51 @@
+
+class Solution {
+    // Function to count inversions in the array.
+    
+     static int mergeAndCount(int arr[], int l, int mid, int r) {
+        int low = l;
+        int high = mid + 1;
+        int count = 0;
+        ArrayList<Integer> temp = new ArrayList<>();
+
+        // Merge the two halves and count inversions
+        while (low <= mid && high <= r) {
+            if (arr[low] <= arr[high]) {
+                temp.add(arr[low]);
+                low++;
+            } else {
+                temp.add(arr[high]);
+                count += (mid - low + 1); // Count inversions
+                high++;
+            }
+        }
+
+        // Add remaining elements
+        while (low <= mid) temp.add(arr[low++]);
+        while (high <= r) temp.add(arr[high++]);
+
+        // Copy the sorted elements back into the original array
+        for (int i = l; i <= r; i++) {
+            arr[i] = temp.get(i - l);
+        }
+
+        return count;
+    }
+
+    static int countInversions(int arr[], int l, int r) {
+        if (l >= r) return 0;
+
+        int mid = (l + r) / 2;
+        int leftCount = countInversions(arr, l, mid);
+        int rightCount = countInversions(arr, mid + 1, r);
+        int mergeCount = mergeAndCount(arr, l, mid, r);
+
+        return leftCount + rightCount + mergeCount;
+    }
+    
+    static int inversionCount(int arr[]) {
+
+        return countInversions(arr,0,arr.length-1);
+        
+    }
+}

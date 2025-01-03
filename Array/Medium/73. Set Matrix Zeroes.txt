@@ -1,0 +1,33 @@
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int m=matrix.length;
+        int n=matrix[0].length;
+
+        for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (matrix[i][j] == 0) {
+                        // Mark the entire row
+                        for (int k = 0; k < n; k++) {
+                            if (matrix[i][k] != 0) {
+                                matrix[i][k] = Integer.MIN_VALUE-5; // Temporary marker
+                            }
+                        }
+                        // Mark the entire column
+                        for (int k = 0; k < m; k++) {
+                            if (matrix[k][j] != 0) {
+                                matrix[k][j] = Integer.MIN_VALUE-5; // Temporary marker
+                            }
+                        }
+                    }
+                }
+            }
+            //replace entire marked col and row with 0
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (matrix[i][j] == Integer.MIN_VALUE-5) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+    }
+}

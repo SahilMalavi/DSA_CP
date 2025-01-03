@@ -1,0 +1,38 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        
+        List<List<Integer>> result=new ArrayList<>();
+
+        if(numRows==1)
+         {
+            result.add(new ArrayList<Integer>(Arrays.asList(1)));
+            return result;
+         }  
+        
+        result.add(new ArrayList<Integer>(Arrays.asList(1)));
+
+        if (numRows==2){
+            result.add(new ArrayList<Integer>(Arrays.asList(1,1)));      
+            return result;
+        }
+            
+        
+        result.add(new ArrayList<Integer>(Arrays.asList(1,1)));
+
+        for(int i=2;i<numRows;i++){
+            List<Integer> list=new ArrayList<Integer>();
+            list.add(1);
+
+            for(int j=0;j<i;j++){
+                if(j+1<i){
+                    int sum=result.get(i-1).get(j)+result.get(i-1).get(j+1);
+                    list.add(sum);
+                }    
+            }
+            list.add(1);
+            
+            result.add(list);
+        }
+        return result;
+    }
+}
